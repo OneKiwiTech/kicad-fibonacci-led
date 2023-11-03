@@ -1,0 +1,33 @@
+{
+    "$schema": "https://go.kicad.org/pcm/schemas/v1",
+    "name": "Pad Distance",
+    "description": "Pad to Pad minimum distance",
+    "description_full": "Pad to Pad minimum distance",
+    "identifier": "vn.onekiwi.track-distance",
+    "type": "plugin",
+    "author": {
+        "name": "OneKiwi",
+        "contact": {
+            "web": "https://github.com/OneKiwiTech"
+        }
+    },
+    "license": "MIT",
+    "resources": {
+        "homepage": "https://github.com/OneKiwiTech/kicad-pad-distance"
+    },
+    "versions": [
+        {
+            "version": "VERSION",
+            "status": "stable",
+            "kicad_version": "7.0",
+            "download_sha256": "SHA256",
+            "download_size": DOWNLOAD_SIZE,
+            "download_url": "https://github.com/OneKiwiTech/kicad-pad-distance/releases/download/VERSION/pad-distance-VERSION.zip",
+            "install_size": INSTALL_SIZE,
+            "platforms": [
+                "linux",
+                "windows"
+            ]
+        }
+    ]
+}
