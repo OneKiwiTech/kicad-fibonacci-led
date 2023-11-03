@@ -2,12 +2,8 @@
 ![screenshot](icon/icon_256x256.png)
 
 ## GUI
-| Normal               | Discrete Device               |
-| ---------------------- | ---------------------- |
-| ![Normal](doc/pad-distance-1.png) | ![Discrete Device](doc/pad-distance-2.png) |
+![Normal](doc/fibonacci-led.png)
 
-## Discrete Device (R,L,C)
-![screenshot](doc/discrete-device.png)
 ## Installation 💾
 
 Add our custom repo to **the Plugin and Content Manager**, the URL is `https://raw.githubusercontent.com/OneKiwiTech/onekiwi-kicad-repository/main/repository.json`
