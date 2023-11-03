@@ -1,9 +1,9 @@
 {
     "$schema": "https://go.kicad.org/pcm/schemas/v1",
-    "name": "Pad Distance",
-    "description": "Pad to Pad minimum distance",
-    "description_full": "Pad to Pad minimum distance",
-    "identifier": "vn.onekiwi.track-distance",
+    "name": "Fibonacci LED",
+    "description": "Fionacci spiral LED",
+    "description_full": "Fionacci spiral LED",
+    "identifier": "vn.onekiwi.fibonacci-led",
     "type": "plugin",
     "author": {
         "name": "OneKiwi",
@@ -13,7 +13,7 @@
     },
     "license": "MIT",
     "resources": {
-        "homepage": "https://github.com/OneKiwiTech/kicad-pad-distance"
+        "homepage": "https://github.com/OneKiwiTech/kicad-fibonacci-led"
     },
     "versions": [
         {
@@ -22,7 +22,7 @@
             "kicad_version": "7.0",
             "download_sha256": "SHA256",
             "download_size": DOWNLOAD_SIZE,
-            "download_url": "https://github.com/OneKiwiTech/kicad-pad-distance/releases/download/VERSION/pad-distance-VERSION.zip",
+            "download_url": "https://github.com/OneKiwiTech/kicad-fibonacci-led/releases/download/VERSION/fibonacci-led-VERSION.zip",
             "install_size": INSTALL_SIZE,
             "platforms": [
                 "linux",

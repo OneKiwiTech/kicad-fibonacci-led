@@ -3,11 +3,8 @@ from ..view.view import FibonacciLedDialogView
 from .logtext import LogText
 import wx
 import sys
-import math
-import pcbnew
 import logging
 import logging.config
-from ..kicad.board import get_current_unit
 
 class Controller:
     def __init__(self, board):
@@ -15,12 +12,6 @@ class Controller:
         self.board = board
         self.logger = self.init_logger(self.view.textLog)
         self.model = Model(self.board, self.logger)
-        self.page = 0
-
-        self.cur_unit = get_current_unit()
-        if self.cur_unit == None:
-            self.cur_unit = 'mm'
-        self.view.textUnit.SetLabel(self.cur_unit)
         self.logger.info('init done')
 
         # Connect Events
@@ -37,26 +28,11 @@ class Controller:
     
     def OnCreatePressed(self, event):
         self.logger.info('OnCreatePressed')
-        origin = self.board.GetDesignSettings().GetGridOrigin()
-        x0 = origin.Get()[0]
-        y0 = origin.Get()[1]
-        circle = pcbnew.PCB_SHAPE(self.board, pcbnew.SHAPE_T_CIRCLE)
-        circle.SetCenter(pcbnew.VECTOR2I(x0,y0))
-        circle.SetStart(pcbnew.VECTOR2I(x0,y0))
-        circle.SetEnd(pcbnew.VECTOR2I(x0+1000000,y0))
-        circle.SetWidth(25400) #1mil
-        circle.SetLayer(pcbnew.F_SilkS)
-        self.board.Add(circle)
-
-        text = pcbnew.PCB_TEXT(self.board)
-        text.SetText('999')
-        text.SetPosition(pcbnew.VECTOR2I(x0,y0))
-        text.SetHorizJustify(pcbnew.GR_TEXT_H_ALIGN_CENTER)
-        text.SetTextSize(pcbnew.VECTOR2I(508000,508000)) #20mil
-        text.SetTextThickness(25400) #1mil
-        text.SetLayer(pcbnew.F_SilkS)
-        self.board.Add(text)
-        pcbnew.Refresh()
+        layer = self.view.choiceLayer.GetSelection()
+        number = int(str(self.view.editNumber.GetValue()))
+        scale = int(str(self.view.editScaling.GetValue()))
+        self.model.init_data(layer, number, scale)
+        self.model.generate()
 
     def OnCopyPressed(self, event):
         self.logger.info('OnCopyPressed')

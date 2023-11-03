@@ -27,15 +27,15 @@ class FibonacciLedDialog ( wx.Dialog ):
 
 		bSizer19 = wx.BoxSizer( wx.HORIZONTAL )
 
-		self.m_staticText15 = wx.StaticText( self, wx.ID_ANY, u"Unit:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText15 = wx.StaticText( self, wx.ID_ANY, u"Layer:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText15.Wrap( -1 )
 
 		bSizer19.Add( self.m_staticText15, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 
-		choiceUnitChoices = [ u"mm", u"mil", u"in" ]
-		self.choiceUnit = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, choiceUnitChoices, 0 )
-		self.choiceUnit.SetSelection( 0 )
-		bSizer19.Add( self.choiceUnit, 1, wx.ALL, 5 )
+		choiceLayerChoices = [ u"F.SilkScreen", u"B.SilkScreen", u"F.Fab", u"B.Fab", u"User.Drawings", u"User.Comments", u"User.1", u"User.2" ]
+		self.choiceLayer = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, choiceLayerChoices, 0 )
+		self.choiceLayer.SetSelection( 0 )
+		bSizer19.Add( self.choiceLayer, 1, wx.ALL, 5 )
 
 
 		bSizer18.Add( bSizer19, 1, wx.EXPAND, 5 )
@@ -72,7 +72,7 @@ class FibonacciLedDialog ( wx.Dialog ):
 		bSizer18.Add( bSizer8, 1, wx.EXPAND, 5 )
 
 		self.buttonCreate = wx.Button( self, wx.ID_ANY, u"Create", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer18.Add( self.buttonCreate, 1, wx.ALL, 5 )
+		bSizer18.Add( self.buttonCreate, 1, wx.ALL|wx.EXPAND, 5 )
 
 
 		bSizer1.Add( bSizer18, 0, wx.EXPAND, 5 )

@@ -6,10 +6,64 @@ class Model:
     def __init__(self, board, logger):
         self.logger = logger
         self.board:pcbnew.BOARD = board
+        origin = self.board.GetDesignSettings().GetGridOrigin()
+        self.leds = Fibonacci(origin)
+        self.layer = pcbnew.F_SilkS
+        self.layers = [pcbnew.F_SilkS, pcbnew.B_SilkS, pcbnew.F_Fab,
+                       pcbnew.B_Fab, pcbnew.Dwgs_User, pcbnew.Cmts_User,
+                       pcbnew.User_1, pcbnew.User_2]
+    
+    def init_data(self, layer, number, scale):
+        self.layer = self.layers[layer]
+        self.leds.n = number
+        self.leds.c = scale
+    
+    def add_circle(self, radius, pos):
+        circle = pcbnew.PCB_SHAPE(self.board, pcbnew.SHAPE_T_CIRCLE)
+        circle.SetCenter(pos)
+        circle.SetStart(pos)
+        circle.SetEnd(radius)
+        circle.SetWidth(25400) #1mil
+        circle.SetLayer(self.layer)
+        self.board.Add(circle)
+    
+    def add_text(self, txt, pos):
+        text = pcbnew.PCB_TEXT(self.board)
+        text.SetText(txt)
+        text.SetPosition(pos)
+        #text.SetPosition(pcbnew.VECTOR2I(x,y))
+        text.SetHorizJustify(pcbnew.GR_TEXT_H_ALIGN_CENTER)
+        text.SetTextSize(pcbnew.VECTOR2I(508000,508000)) #20mil
+        text.SetTextThickness(25400) #1mil
+        text.SetLayer(self.layer)
+        self.board.Add(text)
+    
+    def generate(self):
+        i = 0
+        self.leds.calculate_coordinates()
+        for x,y in self.leds.coordinates:
+            pos = pcbnew.VECTOR2I(x,y)
+            # radius = 1mm
+            radius = pcbnew.VECTOR2I(x+1000000,y)
+            self.add_circle(radius, pos)
+            text = str(i)
+            self.add_text(text, pos)
+            i = i+1
+        pcbnew.Refresh()
         
-
 class Fibonacci():
-    def spiral(self, n, r): # works better for first direction
+    def __init__(self, origin):
+        self.origin = origin
+        self.n = 64
+        self.c = 3
+        self.coordinates = []
+
+    def spiral(self):
+        # φ = (1+√5)/2
+        # θ = 360*n/φ^2
+        # r = c*√n
+        n = self.n
+        r = self.c
         spirals = []
         for i in range(n+1):
             radius = r*(i**0.5)
@@ -17,26 +71,21 @@ class Fibonacci():
             spirals.append(((radius,angle)))
         return spirals
 
-    def pol2cart(self, r, theta):
+    def polar2cartesian(self, r, theta):
         x = r * math.cos(math.radians(theta))
         y = r * math.sin(math.radians(theta))
         return x,y
 
-    def calculate_coordinates(self, num_points = 64, distance = 20):
-        # do the cartesian conversion
-        self.coordinates = [self.pol2cart(r, t) for r, t in self.spiral(num_points, distance)]
+    def calculate_coordinates(self):
+        x0 = self.origin.Get()[0]
+        y0 = self.origin.Get()[1]
+        for r, t in self.spiral():
+            x,y = self.polar2cartesian(r, t)
+            x = int(1000000*round(x, 4))
+            y = int(1000000*round(y, 4))
+            self.coordinates.append([x0+x,y+y0])
 
-        # center for the canvas
-        self.coordinates = [(x+250,y+250) for x, y in self.coordinates]
-
-    def plot_numbers(self, canvas):
-        h = 1
-        self.calculate_coordinates(num_points = 64, distance = 20)
-        for x, y in self.coordinates:
-            canvas.create_oval(x+7, y+7, x-7, y-7)
-            canvas.create_text(x, y, text = h)
-            h += 1
-
+    """
     def plot_lines(self, canvas):
         for delta in [21, 34]:
             for start in range(34):
@@ -47,8 +96,4 @@ class Fibonacci():
                     canvas.create_line(x0, y0, x1, y1)
                     x0 = x1; y0 = y1
                     i += delta
-
-    def clear_highlight_net(self):
-        for track in self.tracks:
-            track.ClearBrightened()
-        pcbnew.Refresh()
+    """

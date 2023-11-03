@@ -74,7 +74,7 @@
                             <property name="border">5</property>
                             <property name="flag">wxEXPAND</property>
                             <property name="proportion">1</property>
-                            <object class="wxBoxSizer" expanded="0">
+                            <object class="wxBoxSizer" expanded="1">
                                 <property name="minimum_size"></property>
                                 <property name="name">bSizer19</property>
                                 <property name="orient">wxHORIZONTAL</property>
@@ -111,7 +111,7 @@
                                         <property name="gripper">0</property>
                                         <property name="hidden">0</property>
                                         <property name="id">wxID_ANY</property>
-                                        <property name="label">Unit:</property>
+                                        <property name="label">Layer:</property>
                                         <property name="markup">0</property>
                                         <property name="max_size"></property>
                                         <property name="maximize_button">0</property>
@@ -158,7 +158,7 @@
                                         <property name="caption"></property>
                                         <property name="caption_visible">1</property>
                                         <property name="center_pane">0</property>
-                                        <property name="choices">&quot;mm&quot; &quot;mil&quot; &quot;in&quot;</property>
+                                        <property name="choices">&quot;F.SilkScreen&quot; &quot;B.SilkScreen&quot; &quot;F.Fab&quot; &quot;B.Fab&quot; &quot;User.Drawings&quot; &quot;User.Comments&quot; &quot;User.1&quot; &quot;User.2&quot;</property>
                                         <property name="close_button">1</property>
                                         <property name="context_help"></property>
                                         <property name="context_menu">1</property>
@@ -180,7 +180,7 @@
                                         <property name="minimize_button">0</property>
                                         <property name="minimum_size"></property>
                                         <property name="moveable">1</property>
-                                        <property name="name">choiceUnit</property>
+                                        <property name="name">choiceLayer</property>
                                         <property name="pane_border">1</property>
                                         <property name="pane_position"></property>
                                         <property name="pane_size"></property>
@@ -210,7 +210,7 @@
                             <property name="border">5</property>
                             <property name="flag">wxEXPAND</property>
                             <property name="proportion">1</property>
-                            <object class="wxBoxSizer" expanded="0">
+                            <object class="wxBoxSizer" expanded="1">
                                 <property name="minimum_size"></property>
                                 <property name="name">bSizer7</property>
                                 <property name="orient">wxHORIZONTAL</property>
@@ -541,7 +541,7 @@
                         </object>
                         <object class="sizeritem" expanded="0">
                             <property name="border">5</property>
-                            <property name="flag">wxALL</property>
+                            <property name="flag">wxALL|wxEXPAND</property>
                             <property name="proportion">1</property>
                             <object class="wxButton" expanded="0">
                                 <property name="BottomDockable">1</property>
