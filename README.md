@@ -3,6 +3,7 @@
 
 ## GUI
 ![Normal](doc/fibonacci-led.png)
+![demo](doc/demo.jpg)
 
 ## Installation 💾
 
