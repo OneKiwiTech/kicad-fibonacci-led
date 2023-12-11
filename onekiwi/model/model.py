@@ -26,6 +26,23 @@ class Model:
         circle.SetWidth(25400) #1mil
         circle.SetLayer(self.layer)
         self.board.Add(circle)
+
+    def add_rect(self, start, end):
+        rect = pcbnew.PCB_SHAPE(self.board, pcbnew.SHAPE_T_RECT)
+        rect.SetFilled(False)
+        rect.SetStart(start)
+        rect.SetEnd(end)
+        rect.SetWidth(25400) #1mil
+        rect.SetLayer(self.layer)
+        self.board.Add(rect)
+
+    def add_line(self, start, end):
+        line = pcbnew.PCB_SHAPE(self.board, pcbnew.SHAPE_T_SEGMENT)
+        line.SetStart(start)
+        line.SetEnd(end)
+        line.SetWidth(25400) #1mil
+        line.SetLayer(self.layer)
+        self.board.Add(line)
     
     def add_text(self, txt, pos):
         text = pcbnew.PCB_TEXT(self.board)
@@ -37,6 +54,19 @@ class Model:
         text.SetTextThickness(25400) #1mil
         text.SetLayer(self.layer)
         self.board.Add(text)
+
+    def plot_lines(self):
+        for delta in [21, 34]:
+            for start in range(34):
+                x0, y0 = self.leds.coordinates[0]
+                i = start
+                while i < len(self.leds.coordinates):
+                    x1, y1 = self.leds.coordinates[i]
+                    s = pcbnew.VECTOR2I(x0, y0)
+                    e = pcbnew.VECTOR2I(x1, y1)
+                    self.add_line(s, e)
+                    x0 = x1; y0 = y1
+                    i += delta
     
     def generate(self):
         i = 0
@@ -49,6 +79,7 @@ class Model:
             text = str(i)
             self.add_text(text, pos)
             i = i+1
+        self.plot_lines()
         pcbnew.Refresh()
         
 class Fibonacci():
@@ -84,16 +115,3 @@ class Fibonacci():
             x = int(1000000*round(x, 4))
             y = int(1000000*round(y, 4))
             self.coordinates.append([x0+x,y+y0])
-
-    """
-    def plot_lines(self, canvas):
-        for delta in [21, 34]:
-            for start in range(34):
-                x0, y0 = self.coordinates[0]
-                i = start
-                while i < len(self.coordinates):
-                    x1, y1 = self.coordinates[i]
-                    canvas.create_line(x0, y0, x1, y1)
-                    x0 = x1; y0 = y1
-                    i += delta
-    """

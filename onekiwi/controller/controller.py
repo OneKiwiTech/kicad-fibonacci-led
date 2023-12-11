@@ -30,7 +30,7 @@ class Controller:
         self.logger.info('OnCreatePressed')
         layer = self.view.choiceLayer.GetSelection()
         number = int(str(self.view.editNumber.GetValue()))
-        scale = int(str(self.view.editScaling.GetValue()))
+        scale = float(str(self.view.editScaling.GetValue()))
         self.model.init_data(layer, number, scale)
         self.model.generate()
 
